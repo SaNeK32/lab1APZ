@@ -1,11 +1,18 @@
-const app = require('./server');
-const supertest = require('supertest');
-const request = supertest(app);
+const request = require('supertest');
+const app = require('./app');
 
-it('gets the test endpoint', async done => {
-    const response = await request.get('/test');
-
+describe('GET /', () => {
+  it('should return "Hello World"', async () => {
+    const response = await request(app).get('/');
     expect(response.status).toBe(200);
-    expect(response.body.message).toBe('pass!');
-    done();
-}); 
+    expect(response.text).toBe(process.env.HELLO);
+  });
+});
+
+describe('GET /user', () => {
+  it('should return user information', async () => {
+    const response = await request(app).get('/user');
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({name: process.env.NAME, age: process.env.AGE});
+  });
+});

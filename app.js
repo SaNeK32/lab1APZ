@@ -1,15 +1,13 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
-app.get("/", (request, response) => {
-     
-    response.send("<h1>Главная страница</h1>");
+
+app.get("/", (req, res) => {
+    res.send(process.env.HELLO);
 });
-app.get("/about", (request, response) => {
-     
-    response.send("<h1>О сайте</h1>");
+
+app.get("/user", (req, res) => {
+    res.send({name: process.env.NAME, age: process.env.AGE});
 });
-app.get("/contact", (request, response) => {
-     
-    response.send("<h1>Контакты</h1>");
-});
-app.listen(3000);
+
+module.exports = app; 
