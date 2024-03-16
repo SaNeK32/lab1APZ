@@ -10,4 +10,11 @@ app.get("/user", (req, res) => {
     res.send({name: process.env.NAME, age: process.env.AGE});
 });
 
-module.exports = app; 
+const PORT = process.env.PORT || 3000;
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+}
+
+module.exports = app;
